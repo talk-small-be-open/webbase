@@ -1,5 +1,7 @@
+// JavaScripts für webbase-Library
+
 function saveScroll(id) {
-	var y = $(document.body).scrollTop();
+	var y = $(document).scrollTop();
 	// Kurze Dauer, sonst können sich zuviele anhäufen
 	var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
 	Cookies.set("page_scroll_" + id, y, { expires: inFifteenMinutes });
@@ -8,8 +10,10 @@ function saveScroll(id) {
 function loadScroll(id) {
 	var y = Cookies.get("page_scroll_" + id);
 	if (!y) {return}
-	$(document.body).scrollTop(y);
+	$(document).scrollTop(y);
 }
+
+
 
 function appendToTagList(inputId, text) {
   var currentValue;
@@ -137,5 +141,9 @@ $(document).ready(function() {
 	lazyLoad();
 	$(window).on('scroll', lazyLoad);
 
-	// AOS.init();
+	// Fallback von HTML5 Date-Inputs, falls der Browser nur ein Textinput anzeigt
+	// if ( $('[type="date"]').prop('type') != 'date' ) {
+  //   $('[type="date"]').datepicker();
+	// }
+	
 })
