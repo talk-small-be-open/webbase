@@ -19,25 +19,23 @@ $(document).ready(function() {
 		// 	importMetadata: '1'
 		// },
 		//	chunk_size: "200kb",
-		//	max_retries: 3
+		runtimes: "html5,html4",
+		max_retries: 3,
+
+	  filters: {
+	    max_file_size: pluploadMaxFileSize,
+	    prevent_duplicates: true,
+	    // mime_types : [
+	    //   { title : "Media files", extensions : "#{file_extensions}" }
+	    // ]
+	  }    
 	});
 
-	//   filters: {
-	//     max_file_size: #{MAX_FILE_SIZE || 0},
-	//     prevent_duplicates: true,
-	//     mime_types : [
-	//       { title : "Media files", extensions : "#{file_extensions}" }
-	//     ]
-	//   }    
-	// });
-
-	
-//	uploader.init();
 
 	uploader.bind("FilesAdded", function(up, files) {
 		var html = "";
 		plupload.each(files, function(file) {
-			html += "<li id=\"" + file.id + "\">" + file.name + " (" + plupload.formatSize(file.size) + ") <span class=\"uploadStatus\">0%</span></li>";
+			html += "<li id=\"" + file.id + "\"><span class=\"uploadStatus\">0%</span> " + file.name + " (" + plupload.formatSize(file.size) + ")</li>";
 		});
 		document.getElementById("pluploadFilelist").innerHTML += html;
 		$("#pluploadStartButton").show();
