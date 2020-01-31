@@ -6,6 +6,9 @@
 // 	// Will be redefined dynamically	
 // }
 
+// function mediaclueAllowedFileExtensions() {
+// 	// Will be redefined dynamically	
+// }
 
 $(document).ready(function() {
 
@@ -25,9 +28,9 @@ $(document).ready(function() {
 	  filters: {
 	    max_file_size: pluploadMaxFileSize,
 	    prevent_duplicates: true,
-	    // mime_types : [
-	    //   { title : "Media files", extensions : "#{file_extensions}" }
-	    // ]
+	    mime_types : [
+	      { title : "Media files", extensions : mediaclueAllowedFileExtensions() }
+	    ]
 	  }    
 	});
 
