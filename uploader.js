@@ -1,17 +1,23 @@
 // function seasideCallbackFileUploaded(ajaxParameter) {
-// 	// Will be redefined dynamically
+// 	// Must be defined dynamically
 // }
 
 // function seasideUploadSessionUuid() {
-// 	// Will be redefined dynamically	
+// 	// Must be defined dynamically
 // }
 
-// function mediaclueAllowedFileExtensions() {
-// 	// Will be redefined dynamically	
+// function seasideAllowedFileExtensions() {
+// 	// Must be defined dynamically
+// }
+
+// function seasideMaxFileUploads() {
+// 	// Must be defined dynamically
 // }
 
 $(document).ready(function() {
 
+	var uploadFilesCount = 0;
+	
 	$("#pluploadStartButton").hide();
 
 	var uploader = new plupload.Uploader({
@@ -22,20 +28,44 @@ $(document).ready(function() {
 		// 	importMetadata: '1'
 		// },
 		//	chunk_size: "200kb",
-		runtimes: "html5,html4",
+		runtimes: "html5",
 		max_retries: 3,
 
 	  filters: {
 	    max_file_size: pluploadMaxFileSize,
+			max_files_count: seasideMaxFileUploads(),
 	    prevent_duplicates: true,
 	    mime_types : [
-	      { title : "Media files", extensions : mediaclueAllowedFileExtensions() }
+	      { title : "Mediendateien", extensions : seasideAllowedFileExtensions() }
 	    ]
 	  }    
 	});
 
 
+	plupload.addFileFilter('max_files_count', function(max, file, cb) {
+
+		if (uploadFilesCount < max) {
+			cb(true);
+		} else {
+			// this.trigger('Error', {
+			// 	code : plupload.FILE_SIZE_ERROR,
+			// 	message : plupload.translate('File size error.'),
+			// });
+			cb(false);
+		}
+
+	});	
+
+
+	// After files have been added from the file dialog
+	uploader.bind("FileFiltered", function(up, file) {
+		uploadFilesCount++;
+	});
+
+
+	// After files have been added from the file dialog
 	uploader.bind("FilesAdded", function(up, files) {
+		
 		var html = "";
 		plupload.each(files, function(file) {
 			html += "<li id=\"" + file.id + "\"><span class=\"uploadStatus\">0%</span> " + file.name + " (" + plupload.formatSize(file.size) + ")</li>";
@@ -45,10 +75,19 @@ $(document).ready(function() {
 
 	});
 
+	// When a file is being uploaded
 	uploader.bind("UploadProgress", function(up, file) {
-		document.getElementById(file.id).querySelector("span.uploadStatus").innerHTML = "<span>" + file.percent + "%</span>";
+		var element = document.getElementById(file.id).querySelector("span.uploadStatus");
+		element.scrollIntoView(false);
+		
+		if (file.percent == 100) {
+			element.innerHTML = "<span>FERTIG</span>";
+		} else {
+			element.innerHTML = "<span>" + file.percent + "%</span>";
+		}
 	});
 
+	// After a file is finished uploading
 	uploader.bind("FileUploaded", function(up, file, result) {
 		if (result.status == 200) {
 			var ajaxParameter = result.response + "/" + file.name;
@@ -58,8 +97,10 @@ $(document).ready(function() {
 		}
 	});
 
+	// When all files have been uploaded
 	uploader.bind("UploadComplete", function(up, file) {
 		// Timeout, damit ajax calls fertig machen können
+		uploadFilesCount = 0;
 		setTimeout(function() {
 			location.reload();
 		}, 1000)
