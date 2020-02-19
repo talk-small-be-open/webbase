@@ -290,12 +290,12 @@ WEBPlUploadComponent >> title: anObject [
 WEBPlUploadComponent >> updateRoot: anHtmlRoot [
 	super updateRoot: anHtmlRoot.
 
-	anHtmlRoot javascript url: '/lib/webbase/plupload-2.3.6/js/plupload.full.min.js'.
-	anHtmlRoot javascript url: '/lib/webbase/plupload-2.3.6/js/i18n/de.js'.
+	anHtmlRoot javascript url: '/lib/webbase/lib/plupload-2.3.6/js/plupload.full.min.js'.
+	anHtmlRoot javascript url: '/lib/webbase/lib/plupload-2.3.6/js/i18n/de.js'.
 	
 	anHtmlRoot javascript with: '
 var pluploadMaxFileSize = ', maxFileSizeBytes asString, ';
 '.
-	anHtmlRoot javascript url: '/lib/webbase/uploader.js'
+	anHtmlRoot javascript url: '/lib/webbase/lib/uploader.js'
 	
 ]

@@ -75,19 +75,19 @@ BaselineOfWebbase >> baseline: spec [
 		spec package: #'Webbase-Main' with: [
 			spec
 				requires: #('OrderPreservingDictionary' 'Seaside3' 'CommandShell' );
-				repository: 'http://monticello.mindclue.dyndns.org:8753/mindclue' ].
+				repository: 'github://talk-small-be-open/webbase'].
 		spec package: #'Webbase-VoyageMongo' with: [
 			spec
 				requires: #('Voyage' 'Webbase-Main');
-				repository: 'http://monticello.mindclue.dyndns.org:8753/mindclue' ].
+				repository: 'github://talk-small-be-open/webbase'].
 		spec package: #'Webbase-Magritte' with: [
 			spec
 				requires: #('Magritte' 'Webbase-Main');
-				repository: 'http://monticello.mindclue.dyndns.org:8753/mindclue' ].
+				repository: 'github://talk-small-be-open/webbase'].
 		spec package: #'Webbase-Ldap' with: [
 			spec
 				requires: #('LDAP' 'Webbase-Main');
-				repository: 'http://monticello.mindclue.dyndns.org:8753/mindclue' ].
+				repository: 'github://talk-small-be-open/webbase'].
 
 		spec group: 'default' with: #(#'Webbase-Main').
 		spec group: 'mongo' with: #(#default #'Webbase-VoyageMongo').
