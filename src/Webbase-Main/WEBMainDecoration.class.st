@@ -101,9 +101,9 @@ WEBMainDecoration >> updateRootLibraries: anHtmlRoot [
 
 	self updateRootJquery: anHtmlRoot.
 
-	anHtmlRoot javascript url: '/lib/webbase/js.cookie.js'.
+	anHtmlRoot javascript url: '/lib/webbase/lib/js.cookie.js'.
 	
-"	anHtmlRoot stylesheet url: '/lib/webbase/styles.css'."
-	anHtmlRoot javascript url: '/lib/webbase/scripts.js'.
+"	anHtmlRoot stylesheet url: '/lib/webbase/lib/styles.css'."
+	anHtmlRoot javascript url: '/lib/webbase/lib/scripts.js'.
 
 ]
