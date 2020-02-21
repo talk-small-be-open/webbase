@@ -79,6 +79,8 @@ WEBDatabase class >> switchProductionToDemo [
 	Demo := Production.
 	Current := Demo.
 	Production := nil.
+	
+	Current instVarNamed: 'identityProvider' put: WEBLocalIdentityProvider new.
 ]
 
 { #category : #'as yet unclassified' }
