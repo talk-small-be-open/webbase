@@ -53,6 +53,7 @@ WEBMainDecoration >> renderFlashMessagesOn: html [
 WEBMainDecoration >> updateRoot: anHtmlRoot [
 	super updateRoot: anHtmlRoot.
 	
+	"Seaside URLs should never be cached. Make sure to double check this in your webserver configuration"
 	self requestContext response doNotCache.
 	
 	anHtmlRoot beHtml5.
@@ -87,8 +88,7 @@ WEBMainDecoration >> updateRoot: anHtmlRoot [
 		beShortcutIcon;
 		url: '/favicon.ico'.
 
-	"libraries... javascript css..."
-	self updateRootLibraries: anHtmlRoot
+
 ]
 
 { #category : #updating }
@@ -97,9 +97,7 @@ WEBMainDecoration >> updateRootJquery: anHtmlRoot [
 ]
 
 { #category : #updating }
-WEBMainDecoration >> updateRootLibraries: anHtmlRoot [
-
-	self updateRootJquery: anHtmlRoot.
+WEBMainDecoration >> updateRootWebbaseLibraries: anHtmlRoot [
 
 	anHtmlRoot javascript url: '/lib/webbase/lib/js.cookie.js'.
 	
