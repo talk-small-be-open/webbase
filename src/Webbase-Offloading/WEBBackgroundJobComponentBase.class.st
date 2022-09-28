@@ -6,7 +6,7 @@ Class {
 		'isAutoClose',
 		'jobTitle'
 	],
-	#category : #'Webbase-Main-Offloading'
+	#category : #'Webbase-Offloading'
 }
 
 { #category : #accessing }

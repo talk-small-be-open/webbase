@@ -12,7 +12,7 @@ Class {
 		'startTimestamp',
 		'stopTimestamp'
 	],
-	#category : #'Webbase-Main-Offloading'
+	#category : #'Webbase-Offloading'
 }
 
 { #category : #execution }

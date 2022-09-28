@@ -5,7 +5,7 @@ Class {
 		'containerId',
 		'isVanished'
 	],
-	#category : #'Webbase-Main-Offloading'
+	#category : #'Webbase-Offloading'
 }
 
 { #category : #actions }

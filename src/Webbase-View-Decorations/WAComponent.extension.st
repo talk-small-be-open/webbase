@@ -23,9 +23,7 @@ WAComponent >> addContainerDiv [
 		add: self class;
 		yourself.
 		
-	(self isKindOf: WEBComponent) ifTrue: [
-		classes addAll: (self class allSuperclasses copyUpTo: WEBComponent).
-	].
+	classes addAll: (self class allSuperclasses copyUpTo: WAComponent).
 		
 	css := (classes collect: [:each | each name asString]) joinUsing: ' '.
 

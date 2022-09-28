@@ -1,5 +1,5 @@
 Class {
 	#name : #WEBFormatError,
 	#superclass : #WEBError,
-	#category : #'Webbase-Main-Misc'
+	#category : #'Webbase-Main-Errors'
 }

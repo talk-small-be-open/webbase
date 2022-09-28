@@ -29,10 +29,10 @@ WEBObject >> initialize [
 WEBObject >> initializeDefaultValues [
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #constants }
 WEBObject >> pi [
 	"Project info"
-	^WEBProjectInfo current
+	^ WEBProjectInfo current
 ]
 
 { #category : #accessing }

@@ -9,7 +9,7 @@ Class {
 		'mutex',
 		'maxJobs'
 	],
-	#category : #'Webbase-Main-Offloading'
+	#category : #'Webbase-Offloading'
 }
 
 { #category : #fuel }

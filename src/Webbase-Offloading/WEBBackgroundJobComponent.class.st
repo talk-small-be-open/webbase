@@ -1,7 +1,7 @@
 Class {
 	#name : #WEBBackgroundJobComponent,
 	#superclass : #WEBBackgroundJobComponentBase,
-	#category : #'Webbase-Main-Offloading'
+	#category : #'Webbase-Offloading'
 }
 
 { #category : #rendering }

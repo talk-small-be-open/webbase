@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'offloader'
 	],
-	#category : #'Webbase-Main-Offloading'
+	#category : #'Webbase-Offloading'
 }
 
 { #category : #'as yet unclassified' }
