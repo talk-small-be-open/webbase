@@ -4,8 +4,6 @@ This is the main base object of a WEB-project
 Class {
 	#name : #WEBObject,
 	#superclass : #Object,
-	#traits : 'TWEBGlobalHelpers',
-	#classTraits : 'TWEBGlobalHelpers classTrait',
 	#category : #'Webbase-Main-Core'
 }
 
@@ -29,6 +27,12 @@ WEBObject >> initialize [
 
 { #category : #initialization }
 WEBObject >> initializeDefaultValues [
+]
+
+{ #category : #'as yet unclassified' }
+WEBObject >> pi [
+	"Project info"
+	^WEBProjectInfo current
 ]
 
 { #category : #accessing }
