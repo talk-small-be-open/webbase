@@ -99,9 +99,9 @@ WEBApplicationManager class >> cleanUpPharo [
 	FreeTypeCache cleanUp.
 	Clipboard startUp: true.
 	RubEditingState allInstances do: [ :each | each instVarNamed: #undoManager put:nil].
-	GTPlayBook reset.
+"	GTPlayBook reset."
 	EditorFindReplaceDialogWindow cleanUp.
-	ActiveHand resetClickState; releaseAllFocus.
+"	ActiveHand resetClickState; releaseAllFocus."
 	UITheme current focusIndicator: nil.
 	CairoBackendCache soleInstance flush.
 	40 timesRepeat: [

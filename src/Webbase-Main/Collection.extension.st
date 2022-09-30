@@ -56,6 +56,11 @@ Collection >> collectAsSet: aBlock [
 ]
 
 { #category : #'*Webbase-Main' }
+Collection >> collectNonNil: aBlock [
+	^ (self collect: aBlock) copyWithoutNils
+]
+
+{ #category : #'*Webbase-Main' }
 Collection >> copyWithItems [
 	^self collect: #copy
 ]

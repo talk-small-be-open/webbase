@@ -2,7 +2,7 @@ Extension { #name : #WAComponent }
 
 { #category : #'*Webbase-View-Main' }
 WAComponent >> cancel [
-	"Standard implementation for the form decoration DAZFormDecoration to work out of the box"
+	"Standard implementation for the form decoration FormDecoration to work out of the box"
 	self answer: nil
 ]
 
