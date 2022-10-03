@@ -45,8 +45,8 @@ WEBSession >> consumeFlashMessages [
 
 { #category : #'as yet unclassified' }
 WEBSession >> ensureUserIsAnonymous [
-"	(user isNil or: [user isAnonymous not]) ifTrue: [self initializeAnonymousUser]"
-	user := nil
+	(user isNil or: [user isAnonymous not]) ifTrue: [self initializeAnonymousUser]
+"	user := nil"
 ]
 
 { #category : #'as yet unclassified' }
@@ -68,9 +68,14 @@ WEBSession >> initialize [
 	user := nil.
 ]
 
+{ #category : #initialization }
+WEBSession >> initializeAnonymousUser [
+	self subclassResponsibility
+]
+
 { #category : #testing }
 WEBSession >> isLoggedIn [
-	^user notNil
+	^ user notNil and: [ user isAnonymous not ]
 ]
 
 { #category : #protocol }
@@ -84,7 +89,7 @@ WEBSession >> login: aUser [
 	
 	"user lastLoginAt: DateAndTime now."
 	
-	self logInfo: 'User ', (aUser email ifBlank: [aUser uuidString]), ' logged in.'
+	self db logInfo: 'User ', (aUser email ifBlank: [aUser uuidString]), ' logged in.'
 ]
 
 { #category : #protocol }
@@ -103,9 +108,10 @@ WEBSession >> loginUser: aUser password: aPasswordString [
 
 { #category : #protocol }
 WEBSession >> logout [
-	self logInfo: 'User ', user email greaseString, ' logged OUT.'.
+	self db logInfo: 'User ', user email greaseString, ' logged OUT.'.
 
-	self user: nil.
+	self ensureUserIsAnonymous.
+"	self user: nil."
 
 	"Das macht zuviel? Damit verlieren wir die Session komplett"
 "	self unregister"

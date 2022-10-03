@@ -130,11 +130,11 @@ WEBDatabase >> ensureAdminExists [
 { #category : #'as yet unclassified' }
 WEBDatabase >> ensureIdentityProvider [
 	| type provider |
-	type := self globalConfiguration identityProviderType.
+	type := self db globalConfiguration identityProviderType.
 
 	"Poor man solution, but KISS"
-	type = 'ldap' ifTrue: [ provider := self pi concreteInstanceOf: WEBLdapIdentityProvider ].
-	type = 'local' ifTrue: [ provider := self pi concreteInstanceOf: WEBLocalIdentityProvider ].
+	type = 'ldap' ifTrue: [ provider := self pi concreteInstanceOf: #WEBLdapIdentityProvider ].
+	type = 'local' ifTrue: [ provider := self pi concreteInstanceOf: #WEBLocalIdentityProvider ].
 
 	"default"
 	provider ifNil: [
@@ -181,7 +181,8 @@ WEBDatabase >> initializeDefaultValues [
 	mailer ifNil: [ mailer := self pi defaultMailerClass new ].
 	butler ifNil: [ butler := self pi defaultButlerClass new ].
 	trash ifNil: [ trash := OrderedCollection new ].
-	identityProvider ifNil: [ identityProvider := self pi defaultIdentityProviderClass new ]
+	identityProvider ifNil: [ identityProvider := self pi defaultIdentityProviderClass new ].
+	globalConfiguration ifNil: [ self initializeGlobalConfiguration ]
 ]
 
 { #category : #initialization }

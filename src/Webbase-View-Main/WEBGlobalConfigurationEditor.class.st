@@ -54,9 +54,9 @@ WEBGlobalConfigurationEditor >> renderSettingsOn: html [
 	html heading level3; with: 'Global settings'.
 	html form: [
 		html table: [
-			self globalConfiguration localKeys sorted do: [:key |
+			self db globalConfiguration localKeys sorted do: [:key |
 				| value |
-				value := self globalConfiguration at: key.
+				value := self db globalConfiguration at: key.
 				(value isKindOf: Boolean) ifTrue: [
 					self renderCheckboxLabel: key
 						value: value
@@ -121,7 +121,7 @@ WEBGlobalConfigurationEditor >> renderToolsOn: html [
 
 { #category : #actions }
 WEBGlobalConfigurationEditor >> save [
-	self globalConfiguration apply
+	self db globalConfiguration apply
 ]
 
 { #category : #'as yet unclassified' }
@@ -138,10 +138,10 @@ WEBGlobalConfigurationEditor >> smartSet: aString at: aKey [
 	
 	aString isAllDigits ifTrue: [ value := aString asInteger ].
 
-	self globalConfiguration at: aKey put: value
+	self db globalConfiguration at: aKey put: value
 ]
 
 { #category : #'as yet unclassified' }
 WEBGlobalConfigurationEditor >> touchKey: aString [
-	self globalConfiguration at: aString asSymbol ifAbsentPut: [ '' ]
+	self db globalConfiguration at: aString asSymbol ifAbsentPut: [ '' ]
 ]

@@ -32,9 +32,16 @@ WEBProjectInfo class >> clear [
 ]
 
 { #category : #'as yet unclassified' }
-WEBProjectInfo class >> concreteClassOf: aClass [
-	aClass allSubclasses ifNotEmpty: [ :ss | ^ss last ].
-	^aClass
+WEBProjectInfo class >> concreteClassOf: aClassOrSymbol [
+	| cls |
+
+	cls := aClassOrSymbol.
+	
+	aClassOrSymbol isSymbol ifTrue: [ cls := aClassOrSymbol asClass ].
+
+	cls allSubclasses ifNotEmpty: [ :ss | ^ ss last ].
+
+	^ cls
 	
 ]
 
@@ -146,7 +153,7 @@ WEBProjectInfo >> defaultFrontendSessionClass [
 
 { #category : #'as yet unclassified' }
 WEBProjectInfo >> defaultGlobalConfigurationClass [
-	self subclassResponsibility
+	^ WEBGlobalConfiguration
 ]
 
 { #category : #'as yet unclassified' }

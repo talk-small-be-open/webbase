@@ -19,7 +19,7 @@ WEBKeepaliveSessionDecoration >> renderContentOn: html [
 		
 	keepaliveUrl := String streamContents: [:stream |
 		stream nextPutAll: '//'.
-		stream nextPutAll: self globalConfiguration webDomain.
+		stream nextPutAll: self db globalConfiguration webDomain.
 		stream nextPutAll: '/keepalive?session='.
 		stream nextPutAll: self session key.
 		stream nextPutAll: '&app='.

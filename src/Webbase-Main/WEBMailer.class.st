@@ -53,7 +53,7 @@ WEBMailer >> initialize [
 
 { #category : #'as yet unclassified' }
 WEBMailer >> returnPath [
-	^ 'mediaclue@', self globalConfiguration emailDomain
+	^ 'application@', self db globalConfiguration emailDomain
 ]
 
 { #category : #delivery }
@@ -99,7 +99,7 @@ WEBMailer >> sendMailTo: aToCollection cc: aCcCollection bcc: aBccCollection sub
 	bcc do: [:each | email addBcc: (WAEmailAddress address: each)].
 
 	"Allenfalls BCC hinzufügen, um Emailverkehr zu loggen"
-	self globalConfiguration loggingEmailAddress ifNotBlank: [:string |
+	self db globalConfiguration loggingEmailAddress ifNotBlank: [:string |
 		email addBcc: (WAEmailAddress address: string)].
 
 	aReplyEmailString isNil

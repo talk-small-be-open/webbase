@@ -4,3 +4,8 @@ Extension { #name : #WEBObject }
 WEBObject >> db [
 	^ WEBDatabase current
 ]
+
+{ #category : #'*Webbase-Database' }
+WEBObject class >> db [
+	^ WEBDatabase current
+]

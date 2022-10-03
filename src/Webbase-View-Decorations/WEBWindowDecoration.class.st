@@ -65,7 +65,7 @@ WEBWindowDecoration >> renderContentOn: html [
 		with: [
 			html h2 class: 'title'; with: [
 				html anchor
-					url: self globalConfiguration webUrl;
+					url: self db globalConfiguration webUrl;
 					with: [
 						html image class: 'logo'; url: self pi logoRelativePath].
 					title ifNotBlank: [ html span: title ]].

@@ -367,7 +367,7 @@ WEBApplicationManager class >> shutDown: isQuitting [
 { #category : #'pharo-integration' }
 WEBApplicationManager class >> startUp: isComingUp [
 	isComingUp ifTrue: [
-		self logInfo: 'Called Startup-Handler'.
+		self db logInfo: 'Called Startup-Handler'.
 		self ensureStartUpConditions.
 		
 "		self isProduction ifTrue: [

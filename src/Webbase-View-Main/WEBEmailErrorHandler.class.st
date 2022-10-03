@@ -19,7 +19,7 @@ WEBEmailErrorHandler >> bodyFor: anError [
 WEBEmailErrorHandler >> from [
 	"ansers the WAEmailAddress instance used as a sender addresst"
 	| domain |
-	domain := self globalConfiguration emailDomain ifBlank: 'localhost'.
+	domain := self db globalConfiguration emailDomain ifBlank: 'localhost'.
 	^WAEmailAddress address: ('webapp.error@', domain)
 ]
 
@@ -88,7 +88,7 @@ WEBEmailErrorHandler >> subjectFor: anError [
 WEBEmailErrorHandler >> to [
 	"ansers the WAEmailAddress instance to which the error mail should be sent"
 
-	^WAEmailAddress address: self globalConfiguration sysAdminEmailAddress
+	^WAEmailAddress address: self db globalConfiguration sysAdminEmailAddress
 ]
 
 { #category : #'as yet unclassified' }

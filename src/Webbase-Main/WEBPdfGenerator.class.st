@@ -153,7 +153,7 @@ WEBPdfGenerator >> xhtmlString [
 			builder := self pi defaultHtmlCanvasClass builder
 				codec: (GRCodec forEncoding: 'utf-8');
 				fullDocument: true;
-				resourceUrl: self globalConfiguration webUrlLocal;
+				resourceUrl: self db globalConfiguration webUrlLocal;
 				rootBlock: [ :root |
 					self updateRoot: root.
 					(WAVisiblePresenterGuide client:

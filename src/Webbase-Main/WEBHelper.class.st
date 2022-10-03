@@ -78,6 +78,11 @@ WEBHelper class >> compileSmalltalk: aString [
 ]
 
 { #category : #file }
+WEBHelper class >> filenameDateAndTimeString [
+	^ self filenameDateAndTimeStringFor: DateAndTime now
+]
+
+{ #category : #file }
 WEBHelper class >> filenameDateAndTimeStringFor: aDateAndTime [
 	aDateAndTime ifNil: [^''].
 	
