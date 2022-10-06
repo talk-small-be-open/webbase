@@ -174,6 +174,17 @@ WEBHelper class >> germanDateStringFor: aDate [
 			nextPutAll: aDate year asString]
 ]
 
+{ #category : #'as yet unclassified' }
+WEBHelper class >> germanTimeStringFor: aTime [
+	aTime ifNil: [^''].
+	^String streamContents: [:stream |
+		stream
+			nextPutAll: (aTime hours asString padLeftTo: 2 with: $0);
+			nextPut: $:;
+			nextPutAll: (aTime minutes asString padLeftTo: 2 with: $0).
+			]
+]
+
 { #category : #folders }
 WEBHelper class >> installationBaseFolder [
 "	'dfdfd' asFileReference."

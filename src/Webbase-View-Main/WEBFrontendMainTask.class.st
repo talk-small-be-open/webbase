@@ -114,7 +114,7 @@ WEBFrontendMainTask >> go [
 	self callApplication]
 		on: Error
 		do: [:error |
-			self ifDevelopment: [error pass].
+			self db isDevelopment ifTrue: [error pass].
 			self displayMessageAndCallPublicApplication: error messageText].
 		
 	self clearCommand.
@@ -160,7 +160,7 @@ WEBFrontendMainTask >> logoutUser [
 
 { #category : #'as yet unclassified' }
 WEBFrontendMainTask >> publicMainComponentClass [
-	^self pi defaultPublicMainComponentClass 
+	^ self pi defaultPublicMainComponentClass
 ]
 
 { #category : #'as yet unclassified' }

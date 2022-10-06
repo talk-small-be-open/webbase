@@ -69,7 +69,7 @@ WEBLightbox >> renderContentOn: html [
 		with: [
 			html div style: 'background-color: white; padding: 1em;'; with: [
 				(title notBlank or: showClose) ifTrue: [
-					html heading level4; with: title.
+					html heading level1; with: title.
 					showClose ifTrue: [
 						html anchor
 							callback: [ self close ];

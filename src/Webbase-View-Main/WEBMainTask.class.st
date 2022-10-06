@@ -95,7 +95,7 @@ WEBMainTask >> initialize [
 
 	super initialize.
 
-	self addDecoration: self pi defaultMainDecorationClass new
+"	self addDecoration: self pi defaultMainDecorationClass new"
 ]
 
 { #category : #'as yet unclassified' }
