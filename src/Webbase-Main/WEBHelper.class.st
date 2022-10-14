@@ -187,8 +187,7 @@ WEBHelper class >> germanTimeStringFor: aTime [
 
 { #category : #folders }
 WEBHelper class >> installationBaseFolder [
-"	'dfdfd' asFileReference."
-	^FileSystem workingDirectory parent
+	^ self db globalConfiguration installationBaseFolder asFileReference 
 ]
 
 { #category : #'as yet unclassified' }

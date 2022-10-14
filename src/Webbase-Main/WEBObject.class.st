@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #accessing }
+WEBObject class >> pi [
+	"Project info"
+	^ WEBProjectInfo current
+]
+
+{ #category : #accessing }
 WEBObject >> classDisplayName [
 	^self class displayName
 ]
@@ -29,7 +35,7 @@ WEBObject >> initialize [
 WEBObject >> initializeDefaultValues [
 ]
 
-{ #category : #constants }
+{ #category : #accessing }
 WEBObject >> pi [
 	"Project info"
 	^ WEBProjectInfo current

@@ -9,9 +9,14 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+WEBFrontendMainTask class >> applicationUrlName [
+	^ 'app'
+]
+
+{ #category : #'as yet unclassified' }
 WEBFrontendMainTask class >> registerAsApplication [
 
-	^self registerAsApplication: 'app'
+	^ self registerAsApplication: self applicationUrlName
 
 ]
 
@@ -26,22 +31,40 @@ WEBFrontendMainTask class >> registerAsApplication: aName [
 	app configuration addParent: WAEmailConfiguration instance.
 
 	app
-		preferenceAt: #sessionClass put: self pi defaultFrontendSessionClass;
+		preferenceAt: #sessionClass put: self sessionClass;
 		preferenceAt: #trackingStrategy put: WACookieIfSupportedSessionTrackingStrategy new;
 		scriptGeneratorClass: JQScriptGenerator.
 		
 "		preferenceAt: #renderPhaseContinuationClass put: ALRenderPhaseContinuation;
 		preferenceAt: #actionPhaseContinuationClass put: ALCallbackProcessingActionContinuation;"
 
-	app exceptionHandler: WADebugErrorHandler.
 
-	^app
+	"After so many seconds after its creation a session is considered expired no matter when it was last accessed. 0 for no limit. Has to be positive."
+	app preferenceAt: #maximumAbsoluteAge put: 0.
 	
+	"After so many seconds of inactivity a session is considered expired. 0 for no limit. Has to be positive."
+	"Remarks: Use beKeepaliveSession in the main component, to install a background session prolonger. "
+	app preferenceAt: #maximumRelativeAge put: 1800.
+	
+	"Number of sessions supported. When this limit is reached the overflow action is run. 0 for no maximum size. Has to be positive."
+	app preferenceAt: #maximumSize put: 10000.
+	
+	"What to do when the maximum number of sessions is reached. Only matters when the maximum size is bigger than 0."
+	app preferenceAt: #overflowAction put: #removeRelativeOldest. "see WAHashCache overflowActions"
 
 
+	(GRPlatform current label = 'Pharo')
+		ifTrue: [ app exceptionHandler: WADebugErrorHandler ]
+		ifFalse: [ app exceptionHandler: WAGemStoneProductionErrorHandler ].
+		
+	^ app
 
 
+]
 
+{ #category : #configuration }
+WEBFrontendMainTask class >> sessionClass [
+	^ self pi defaultFrontendSessionClass
 ]
 
 { #category : #'as yet unclassified' }

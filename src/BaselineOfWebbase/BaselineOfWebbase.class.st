@@ -8,30 +8,73 @@ Class {
 BaselineOfWebbase >> baseline: spec [
 	<baseline>
 
+	self baselineCommon: spec.
+
+	self baselinePharo: spec.
+
+	self baselineGemStone: spec
+]
+
+{ #category : #baselines }
+BaselineOfWebbase >> baselineCommon: spec [
+
 	spec for: #'common' do: [
 		spec preLoadDoIt: #'preload:package:'.
-"		spec blessing: #'baseline'."
 		spec 
-"			project: 'CommandShell' with: [
-				spec
-					className: #ConfigurationOfCommandShell;
-					versionString: #'stable';
-					repository: 'http://www.squeaksource.com/MetacelloRepository' ];"
-			baseline: 'OSSubprocess' with: [
-				spec
-					repository: 'github://pharo-contributions/OSSubprocess:master/repository' ];
-
 			baseline: 'Seaside3' with: [
 				spec
-"					versionString: #'stable';"
 					repository: self seasideRepository;
 	"TODO: Development nur bei Group=devtools reinnehmen, aber wie geht das?"
 					loads: #('Core' 'JSON' 'Email' 'Javascript' 'JQuery' 'JQueryUI' 'REST' 'Zinc' ) ];
 
 			project: 'Seaside3-Dev'
 			copyFrom: 'Seaside3'
-			with: [ spec loads: #('Core' 'JSON' 'Email' 'Javascript' 'JQuery' 'JQueryUI' 'REST' 'Zinc' 'Development') ];
+			with: [ spec loads: #('Core' 'JSON' 'Email' 'Javascript' 'JQuery' 'JQueryUI' 'REST' 'Zinc' 'Development') ].
 
+
+
+		spec package: #'Webbase-Main' with: [
+			spec
+				requires: #('OrderPreservingDictionary' 'Seaside3' )].
+
+
+		spec group: 'devtools' with: #(#'Seaside3-Dev').
+
+	].
+
+]
+
+{ #category : #baselines }
+BaselineOfWebbase >> baselineGemStone: spec [
+
+	spec for: #gemstone do: [
+
+		spec baseline: 'Seaside3' with: [
+			"GemStone specific seaside packages"
+			spec
+				loads: #('Base' 'Core' 'JSON' 'Email' 'Javascript' 'JQuery' 'Production' 'Zinc Project' 'Seaside-GemStone-Adaptors-Zinc')
+		].
+
+		spec package: #'Webbase-GemStone' with: [
+			spec
+				requires: #('MockGemStone' 'Webbase-Main');
+				repository: 'github://talk-small-be-open/webbase'].
+
+		spec group: 'default' with: #(#'Webbase-Main' #'Webbase-GemStone').
+		
+	]
+
+]
+
+{ #category : #baselines }
+BaselineOfWebbase >> baselinePharo: spec [
+
+	spec for: #pharo do: [
+
+		spec
+			baseline: 'OSSubprocess' with: [
+				spec
+					repository: 'github://pharo-contributions/OSSubprocess:master/repository' ];
 			baseline: 'Magritte' with: [
 				spec
 					repository: 'github://magritte-metamodel/magritte:v3.6'; 
@@ -42,32 +85,30 @@ BaselineOfWebbase >> baseline: spec [
 					repository: 'github://pharo-nosql/voyage/mc';
 					loads: #(mongo) ];
 
+			baseline: 'OrderPreservingDictionary' with: [
+				spec
+					repository: 'github://pharo-contributions/OrderPreservingDictionary';
+					loads: #(default) ];
+
 			project: 'LDAP' with: [
 				spec
 					className: #ConfigurationOfLDAP;
 					versionString: #'stable';
-					repository: 'github://pharo-contributions/LDAP/src' ];
+					repository: 'github://pharo-contributions/LDAP/src' ].
 
-			baseline: 'OrderPreservingDictionary' with: [
-				spec
-					repository: 'github://pharo-contributions/OrderPreservingDictionary';
-					loads: #(default) ].
-
-	].
-
-	spec for: #pharo do: [
 		spec package: #'Webbase-Main' with: [
 			spec
-				requires: #('OrderPreservingDictionary' 'Seaside3' 'OSSubprocess' );
-				repository: 'github://talk-small-be-open/webbase'].
+				includes: #('Webbase-Pharo');
+				requires: #('OSSubprocess' )].
 		spec package: #'Webbase-VoyageMongo' with: [
 			spec
-				requires: #('Voyage' 'Webbase-Main');
-				repository: 'github://talk-small-be-open/webbase'].
+				requires: #('Voyage' 'Webbase-Main')].
 		spec package: #'Webbase-Magritte' with: [
 			spec
-				requires: #('Magritte' 'Webbase-Main');
-				repository: 'github://talk-small-be-open/webbase'].
+				requires: #('Magritte' 'Webbase-Main')].
+		spec package: #'Webbase-Pharo' with: [
+			spec
+				requires: #('Webbase-Main')].
 		spec package: #'Webbase-Ldap' with: [
 			spec
 				requires: #('LDAP' 'Webbase-Main');
@@ -76,23 +117,14 @@ BaselineOfWebbase >> baseline: spec [
 			spec
 				requires: #('Seaside3');
 				repository: 'github://talk-small-be-open/utils:master/src' ].
-		spec package: #'Webbase-GemStone' with: [
-			spec
-				requires: #('MockGemStone' 'Webbase-Main');
-				repository: 'github://talk-small-be-open/webbase'].
 
 
 		spec group: 'default' with: #(#'Webbase-Main').
 		spec group: 'mongo' with: #(#default #'Webbase-VoyageMongo').
-		spec group: 'gemstone' with: #(#default #'Webbase-GemStone').
+		spec group: 'gemstone' with: #(#default #'MockGemStone').
 		spec group: 'magritte' with: #(#default #'Webbase-Magritte').
 		spec group: 'ldap' with: #(#default #'Webbase-Ldap').
-		spec group: 'devtools' with: #(#'Seaside3-Dev').
 	].
-
-	spec for: #gemstone do: [
-		
-	]
 
 ]
 

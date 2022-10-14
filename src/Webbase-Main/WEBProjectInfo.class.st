@@ -142,8 +142,8 @@ WEBProjectInfo >> defaultDatabaseBaseClass [
 ]
 
 { #category : #'as yet unclassified' }
-WEBProjectInfo >> defaultFrontendMainTaskClass [
-	^self concreteClassOf: WEBFrontendMainTask
+WEBProjectInfo >> defaultFrontendMainTaskClasses [
+	^ WEBFrontendMainTask allSubclasses
 ]
 
 { #category : #'as yet unclassified' }
