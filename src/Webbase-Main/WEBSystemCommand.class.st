@@ -9,22 +9,30 @@ WEBSystemCommand class >> cp: aSource to: aTarget [
 	self run: 'cp "', aSource, '" "', aTarget, '"'
 ]
 
+{ #category : #'as yet unclassified' }
+WEBSystemCommand class >> ensureNonBullshitShellCommand: aShellCommandString [
+
+	aShellCommandString isByteString ifFalse: [
+		WEBError signal: 'Cant execute non-8bit shell commands' ].
+		
+	"TODO: Check more than that?"
+]
+
 { #category : #command }
 WEBSystemCommand class >> fetch: aCommandString [
-	| shellOutput exitCode shell output |
+	| shellOutput exitCode shell output cmd |
 	self logCommand: aCommandString.
 
-	shell := PipeableOSProcess command: aCommandString.
+	cmd := aCommandString.
+	
+	self ensureNonBullshitShellCommand: cmd.
 
-	[
-		output := shell outputAndError.
-		shellOutput := output first.
-		exitCode := output last.
-	] ensure: [
-		shell
-			closePipes;
-			close;
-			release ].
+	OSSUnixSubprocess new
+		shellCommand: cmd;
+		redirectStdout;
+		runAndWaitOnExitDo: [ :process :outString |
+			shellOutput := WEBHelper fromUtf8: outString.
+		].
 
 	self logOutput: shellOutput.
 
@@ -65,16 +73,31 @@ WEBSystemCommand class >> rm: aSource [
 
 { #category : #command }
 WEBSystemCommand class >> run: aCommandString [
-	| pop |
+	| cmd |
 
 	self logCommand: aCommandString.
 
-	pop := OSProcess waitForCommand: aCommandString.
-	^pop
+	cmd := aCommandString.
+	
+	self ensureNonBullshitShellCommand: cmd.
+
+	^ OSSUnixSubprocess new
+		shellCommand: cmd;
+		runAndWait;
+		isSuccess
 ]
 
 { #category : #command }
 WEBSystemCommand class >> runAsync: aCommandString [
+	| cmd |
+
 	self logCommand: aCommandString.
-	^OSProcess command: aCommandString "Ist async und hinterlässt keine offenen Pipes!"
+	
+	cmd := aCommandString.
+
+	self ensureNonBullshitShellCommand: cmd.
+	
+	OSSUnixSubprocess new
+		shellCommand: cmd;
+		run
 ]
