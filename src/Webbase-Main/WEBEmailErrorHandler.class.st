@@ -29,7 +29,7 @@ WEBEmailErrorHandler >> from [
 WEBEmailErrorHandler >> handleDefault: anException [
 	
 	[
-		self logError: ('Exception on Frontend. User ', self session user displayName, ' has seen error information: ', anException description).
+		self logError: ('Exception on Frontend. User ', self session userLabel, ' has seen error information: ', anException description).
 		self sendFailFor: anException.
 	] ifError: [:description |
 		Transcript
