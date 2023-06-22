@@ -10,7 +10,7 @@ Class {
 WEBEmailErrorHandler >> bodyFor: anError [
 	^ WAStringEmailBody string: (String streamContents: [ :stream | 
 		stream nextPutAll: 'Benutzer: '.
-		stream nextPutAll: self session user displayName.
+		stream nextPutAll: self session userLabel.
 		stream crlf; crlf.
 		stream nextPutAll: anError description.
 		stream crlf; crlf.
