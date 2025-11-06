@@ -124,6 +124,11 @@ WEBDatabase >> butler [
 ]
 
 { #category : #'as yet unclassified' }
+WEBDatabase >> clearTrash [
+	trash removeAll
+]
+
+{ #category : #'as yet unclassified' }
 WEBDatabase >> ensureAdminExists [
 ]
 
