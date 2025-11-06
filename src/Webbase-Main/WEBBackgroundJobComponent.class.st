@@ -1,8 +1,25 @@
 Class {
 	#name : #WEBBackgroundJobComponent,
 	#superclass : #WEBBackgroundJobComponentBase,
+	#instVars : [
+		'isFirstDisplay'
+	],
 	#category : #'Webbase-Main-Offloading'
 }
+
+{ #category : #initialization }
+WEBBackgroundJobComponent >> initialize [
+	super initialize.
+	
+	isFirstDisplay := true
+]
+
+{ #category : #'as yet unclassified' }
+WEBBackgroundJobComponent >> poll [
+	"Polling"
+	isFirstDisplay := false.
+	self checkIfFinished.
+]
 
 { #category : #rendering }
 WEBBackgroundJobComponent >> renderContentOn: html [
@@ -10,7 +27,7 @@ WEBBackgroundJobComponent >> renderContentOn: html [
 	
 	refreshMs := self ifDevelopment: [ 1000 ] else: [ 5000 ].
 	
-	self isGenerating
+	self shouldDisplayWaitScreen
 		ifTrue: [
 			html alertWarning
 				with: [
@@ -26,7 +43,7 @@ WEBBackgroundJobComponent >> renderContentOn: html [
 								callback: [self abort];
 								with: 'Abbrechen']]].
 			html script: ((html javascript
-				callback: [ self checkIfFinished ]) setTimeout: refreshMs).
+				callback: [ self poll ]) setTimeout: refreshMs).
 		]
 		ifFalse: [
 			job isSuccess ifTrue: [html alertSuccess: 'OK'].
@@ -36,4 +53,9 @@ WEBBackgroundJobComponent >> renderContentOn: html [
 				with: 'Vorgang fertig. Schliessen.'
 		].
 
+]
+
+{ #category : #asserting }
+WEBBackgroundJobComponent >> shouldDisplayWaitScreen [
+	^ self isGenerating or: [ isFirstDisplay ]
 ]

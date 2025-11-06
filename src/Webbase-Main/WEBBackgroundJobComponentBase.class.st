@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'job',
 		'isAutoClose',
-		'jobTitle'
+		'jobTitle',
+		'isClosed'
 	],
 	#category : #'Webbase-Main-Offloading'
 }
@@ -54,11 +55,12 @@ WEBBackgroundJobComponentBase >> beAutoClose [
 { #category : #'as yet unclassified' }
 WEBBackgroundJobComponentBase >> checkIfFinished [
 	self isGenerating ifFalse: [
-		self isAutoClose ifTrue: [self close]]
+		self shouldAutoClose ifTrue: [ self close ] ]
 ]
 
 { #category : #actions }
 WEBBackgroundJobComponentBase >> close [
+	isClosed := true.
 	self answerJob
 ]
 
@@ -67,13 +69,8 @@ WEBBackgroundJobComponentBase >> initialize [
 
 	super initialize.
 
-	
 	isAutoClose := false.
-]
-
-{ #category : #testing }
-WEBBackgroundJobComponentBase >> isAutoClose [
-	^isAutoClose and: [ job isSuccess ]
+	isClosed := false.
 ]
 
 { #category : #'as yet unclassified' }
@@ -99,4 +96,9 @@ WEBBackgroundJobComponentBase >> setJob: aJob [
 { #category : #initialization }
 WEBBackgroundJobComponentBase >> setJobTitle: aString [
 	jobTitle := aString
+]
+
+{ #category : #asserting }
+WEBBackgroundJobComponentBase >> shouldAutoClose [
+	^ isClosed not and: [ isAutoClose and: [ job isSuccess ] ]
 ]
