@@ -37,3 +37,8 @@ Object >> isBlank [
 Object >> notBlank [
 	^self isBlank not
 ]
+
+{ #category : #'*Webbase-Main' }
+Object >> sortKey [
+	^ self printString
+]
